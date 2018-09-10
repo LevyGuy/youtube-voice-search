@@ -1,41 +1,4 @@
 
-// FROM DEMOS
-//      https://www.google.com/intl/en/chrome/demos/speech.html
-//      https://developers.google.com/web/updates/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API
-
-'use strict';
-
-let recognizing = false;
-let time = Date.now();
-let results;
-const searchBtn = document
-    .querySelector('button#search-icon-legacy');
-
-const recognition = new webkitSpeechRecognition();
-recognition.continuous = true;
-recognition.interimResults = true;
-recognition.onstart = () =>
-{
-    recognizing = true;
-};
-recognition.onerror = (event) =>
-{
-    recognizing = false;
-    alert(event.error);
-};
-recognition.onend = () =>
-{
-    recognizing = false;
-    searchBtn.focus();
-    searchBtn.click();
-};
-recognition.onresult = (event) =>
-{
-    results = event.results[0][0].transcript;
-    time = Date.now();
-    document.querySelector('input#search').value = results;
-};
-
 let btn = document.createElement('button');
 btn.title = 'Search by voice';
 btn.style.cssText = `
@@ -65,16 +28,7 @@ btn.onclick = (ev) =>
     checkResults();
 };
 
-let checkResults = () =>
-{
-    let passed = Date.now() - time;
-    if (results && passed > 500)
-    {
-        recognition.stop();
-        return;
-    }
-    setTimeout(checkResults, 1000);
-};
 
 document.getElementById('search-input')
     .insertAdjacentElement('beforeend', btn);
+

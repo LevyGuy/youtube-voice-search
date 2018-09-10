@@ -1,0 +1,1 @@
+cat src/main.js src/recognition.js src/listener-btn-input.js > plugin/content-script.js

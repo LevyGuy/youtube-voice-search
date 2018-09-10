@@ -1,4 +1,4 @@
-# YouTube voice search
+# YouTube voice search Chrome plugin
 
 Plugin icon courtesy of [Flaticon](https://www.flaticon.com/)
 
