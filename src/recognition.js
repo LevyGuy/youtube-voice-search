@@ -1,4 +1,8 @@
 
+// FROM DEMOS
+//      https://www.google.com/intl/en/chrome/demos/speech.html
+//      https://developers.google.com/web/updates/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API
+
 let recognizing = false;
 
 const recognition = new webkitSpeechRecognition();
@@ -7,6 +11,7 @@ recognition.interimResults = true;
 recognition.onstart = () =>
 {
     recognizing = true;
+    appendListenerOverlay();
 };
 recognition.onerror = (event) =>
 {
@@ -16,18 +21,15 @@ recognition.onerror = (event) =>
 recognition.onend = () =>
 {
     recognizing = false;
-
+    removeListenerOverlay();
     document
-        .querySelector('input#search')
-        .focus();
-
-    document
-        .querySelector('button#search-icon-legacy')
-        .click();
+        .querySelector('form#search-form')
+        .submit();
 };
 recognition.onresult = (event) =>
 {
     results = event.results[0][0].transcript;
+    setListenerText(results);
     time = Date.now();
     document.querySelector('input#search').value = results;
 };

@@ -1,8 +1,4 @@
 
-// FROM DEMOS
-//      https://www.google.com/intl/en/chrome/demos/speech.html
-//      https://developers.google.com/web/updates/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API
-
 'use strict';
 
 const MAX_WAIT_TIME = 500;

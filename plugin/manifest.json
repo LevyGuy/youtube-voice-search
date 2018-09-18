@@ -1,8 +1,8 @@
 {
-  "name": "YouTube Voice search",
-  "version": "0.1",
+  "name": "YouTube Voice search (open source)",
+  "version": "0.3",
   "minimum_chrome_version": "49.0",
-  "description": "YouTube Voice search",
+  "description": "Allow voice search on YouTube web in a similar manner to the phone app.",
   "icons": {
     "16": "icon.png",
     "48": "icon.png",
