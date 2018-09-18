@@ -118,7 +118,7 @@ let appendListenerOverlay = () =>
             align-items: center;
             justify-content: center;
             height: 100%;">
-                <p>Give meee whahhaha</p>
+                <p></p>
             </div>
             <div class="-listenerOverlayIcon" style="flex: 1; 
             display: flex;">
