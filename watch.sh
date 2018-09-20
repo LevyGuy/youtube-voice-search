@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Use ./build-listener.sh [folder to listen to]. for example  ./build-listener.sh src
+# Gist from https://gist.github.com/LevyGuy/1f263c2303bb5b9ce44f3cfd7abdbd90
 
 #FOLDER=$1
 FILES=src/*.js
