@@ -12,6 +12,11 @@ recognition.onstart = () =>
 {
     recognizing = true;
     appendListenerOverlay();
+    if (!animatingListener)
+    {
+        animatingListener = true;
+        animateListener();
+    }
 };
 recognition.onerror = (event) =>
 {
@@ -20,6 +25,7 @@ recognition.onerror = (event) =>
 };
 recognition.onend = () =>
 {
+    animatingListener = false;
     recognizing = false;
     removeListenerOverlay();
     document
@@ -33,5 +39,3 @@ recognition.onresult = (event) =>
     time = Date.now();
     document.querySelector('input#search').value = results;
 };
-
-

@@ -1,6 +1,4 @@
 
-'use strict';
-
 const MAX_WAIT_TIME = 500;
 
 let time = Date.now();
@@ -21,4 +19,4 @@ let checkResults = () =>
 // Fix search width to give space to the microphone
 let searchEl = document.querySelector('input#search');
 searchEl.style.width = 'calc(100% - 35px)';
-searchEl.focus();
+
