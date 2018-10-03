@@ -72,3 +72,12 @@ let animateListener = () =>
     el.style.setProperty("-webkit-transform", "scale(" + a + ")");
     setTimeout(animateListener, 150);
 };
+
+
+document.addEventListener('keyup', (evt) =>
+{
+    if (evt.key === 'Escape')
+        removeListenerOverlay();
+});
+
+

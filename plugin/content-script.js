@@ -1,4 +1,66 @@
 
+const MAX_WAIT_TIME = 500;
+
+let time = Date.now();
+let results;
+
+
+let checkResults = () =>
+{
+    let passed = Date.now() - time;
+    if (results && passed > MAX_WAIT_TIME)
+    {
+        recognition.stop();
+        return;
+    }
+    setTimeout(checkResults, 1000); // TODO - move the MAX_WAIT_TIME
+};
+
+// Fix search width to give space to the microphone
+let searchEl = document.querySelector('input#search');
+searchEl.style.width = 'calc(100% - 35px)';
+
+// FROM DEMOS
+//      https://www.google.com/intl/en/chrome/demos/speech.html
+//      https://developers.google.com/web/updates/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API
+
+let recognizing = false;
+
+const recognition = new webkitSpeechRecognition();
+recognition.continuous = true;
+recognition.interimResults = true;
+recognition.onstart = () =>
+{
+    recognizing = true;
+    appendListenerOverlay();
+    if (!animatingListener)
+    {
+        animatingListener = true;
+        animateListener();
+    }
+};
+recognition.onerror = (event) =>
+{
+    recognizing = false;
+    alert(event.error);
+};
+recognition.onend = () =>
+{
+    animatingListener = false;
+    recognizing = false;
+    removeListenerOverlay();
+    document
+        .querySelector('form#search-form')
+        .submit();
+};
+recognition.onresult = (event) =>
+{
+    results = event.results[0][0].transcript;
+    setListenerText(results);
+    time = Date.now();
+    document.querySelector('input#search').value = results;
+};
+
 let btn = document.createElement('button');
 btn.title = 'Search by voice';
 btn.style.cssText = `
@@ -107,65 +169,11 @@ let animateListener = () =>
     setTimeout(animateListener, 150);
 };
 
-const MAX_WAIT_TIME = 500;
 
-let time = Date.now();
-let results;
-
-
-let checkResults = () =>
+document.addEventListener('keyup', (evt) =>
 {
-    let passed = Date.now() - time;
-    if (results && passed > MAX_WAIT_TIME)
-    {
-        recognition.stop();
-        return;
-    }
-    setTimeout(checkResults, 1000); // TODO - move the MAX_WAIT_TIME
-};
-
-// Fix search width to give space to the microphone
-let searchEl = document.querySelector('input#search');
-searchEl.style.width = 'calc(100% - 35px)';
+    if (evt.key === 'Escape')
+        removeListenerOverlay();
+});
 
 
-// FROM DEMOS
-//      https://www.google.com/intl/en/chrome/demos/speech.html
-//      https://developers.google.com/web/updates/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API
-
-let recognizing = false;
-
-const recognition = new webkitSpeechRecognition();
-recognition.continuous = true;
-recognition.interimResults = true;
-recognition.onstart = () =>
-{
-    recognizing = true;
-    appendListenerOverlay();
-    if (!animatingListener)
-    {
-        animatingListener = true;
-        animateListener();
-    }
-};
-recognition.onerror = (event) =>
-{
-    recognizing = false;
-    alert(event.error);
-};
-recognition.onend = () =>
-{
-    animatingListener = false;
-    recognizing = false;
-    removeListenerOverlay();
-    document
-        .querySelector('form#search-form')
-        .submit();
-};
-recognition.onresult = (event) =>
-{
-    results = event.results[0][0].transcript;
-    setListenerText(results);
-    time = Date.now();
-    document.querySelector('input#search').value = results;
-};
